@@ -2,7 +2,7 @@ package com.example.minimoneybox.di
 
 import com.example.minimoneybox.api.ApiConstants
 import com.example.minimoneybox.api.MoneyBoxApi
-import com.example.minimoneybox.utils.HeaderInterceptor
+import com.example.minimoneybox.utils.interceptors.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -24,7 +24,8 @@ object NetworkModule {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val headerInterceptor = HeaderInterceptor()
+        val headerInterceptor =
+            HeaderInterceptor()
 
         val client : OkHttpClient  =  OkHttpClient.Builder()
 

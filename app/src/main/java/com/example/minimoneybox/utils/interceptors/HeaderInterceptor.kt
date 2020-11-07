@@ -1,4 +1,4 @@
-package com.example.minimoneybox.utils
+package com.example.minimoneybox.utils.interceptors
 
 import com.example.minimoneybox.api.ApiConstants
 import okhttp3.Interceptor
