@@ -1,6 +1,8 @@
 package com.example.minimoneybox.di
 
 import com.example.minimoneybox.api.ApiConstants
+import com.example.minimoneybox.api.MoneyBoxApi
+import com.example.minimoneybox.utils.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.Reusable
@@ -9,32 +11,31 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import java.util.concurrent.TimeUnit;
 
 @Module
 object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideOkHttpClient(): OkHttpClient? {
+    internal fun provideOkHttpClient(): OkHttpClient? {
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        //val webServiceInterceptor = WebServiceInterceptor()
-
+        val headerInterceptor = HeaderInterceptor()
 
         val client : OkHttpClient  =  OkHttpClient.Builder()
 
             .addInterceptor(loggingInterceptor)
 
-            //.addInterceptor(webServiceInterceptor)
+            .addInterceptor(headerInterceptor)
 
             .connectTimeout(ApiConstants.CONNECTION_TIMEOUT, TimeUnit.SECONDS) //time between each byte read from the server
             .readTimeout(ApiConstants.READ_TIMEOUT, TimeUnit.SECONDS) //time between each byte sent to server
             .writeTimeout(ApiConstants.WRITE_TIMEOUT, TimeUnit.SECONDS)
-            .retryOnConnectionFailure(false) //.addInterceptor(new UrlInterceptor())
+            .retryOnConnectionFailure(false)
             .build()
 
         return client
@@ -44,14 +45,22 @@ object NetworkModule {
     @Provides
     @Reusable
     @JvmStatic
-    internal fun provideRetrofitInterface(): Retrofit {
+    internal fun provideRetrofitInterface(okHttpClient : OkHttpClient): Retrofit {
 
         return Retrofit.Builder()
             .baseUrl(ApiConstants.BASE_URL)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            //.client(okHttpClient)
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
+    }
+
+
+    @Provides
+    @Reusable
+    @JvmStatic
+    fun provideMoneyBoxApiInterface(retrofit: Retrofit): MoneyBoxApi {
+        return retrofit.create<MoneyBoxApi>(MoneyBoxApi::class.java)
     }
 
 }
