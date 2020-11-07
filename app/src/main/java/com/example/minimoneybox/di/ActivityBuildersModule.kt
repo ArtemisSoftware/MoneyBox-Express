@@ -1,5 +1,6 @@
 package com.example.minimoneybox.di
 
+import com.example.minimoneybox.di.Login.LoginScope
 import com.example.minimoneybox.ui.LoginActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -11,7 +12,7 @@ import dagger.android.ContributesAndroidInjector
 abstract class ActivityBuildersModule {
 
 
-    //@AutenticacaoScope
+    @LoginScope
     //@ContributesAndroidInjector(modules = [AutenticacaoViewModelsModule::class, AutenticacaoModule::class])
     abstract fun contributeLoginActivity(): LoginActivity
 
