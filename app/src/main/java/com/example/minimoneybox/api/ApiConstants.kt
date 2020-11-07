@@ -8,6 +8,12 @@ class ApiConstants {
         const val CONTENT_TYPE = "application/json"
         const val APP_VERSION = "5.10.0"
         const val API_VERSION = "3.0.0"
+
+
+        const val CONNECTION_TIMEOUT : Long = 10 // 10 seconds
+        const val READ_TIMEOUT : Long = 20 // 20 seconds
+        const val WRITE_TIMEOUT : Long = 20 // 20 seconds
+
     }
 
 }
