@@ -2,7 +2,7 @@ package com.example.minimoneybox.repositories
 
 import com.example.minimoneybox.api.MoneyBoxApi
 import com.example.minimoneybox.api.models.Session
-import com.example.minimoneybox.api.requests.User
+import com.example.minimoneybox.api.models.requests.User
 import io.reactivex.Single
 
 class Repository(private val api : MoneyBoxApi) {

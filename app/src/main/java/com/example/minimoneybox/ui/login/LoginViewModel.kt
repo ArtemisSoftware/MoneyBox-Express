@@ -1,4 +1,4 @@
-package com.example.minimoneybox.ui
+package com.example.minimoneybox.ui.login
 
 import com.example.minimoneybox.api.models.Session
 import com.example.minimoneybox.repositories.Repository

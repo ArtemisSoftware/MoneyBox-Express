@@ -1,17 +1,26 @@
-package com.example.minimoneybox.ui
+package com.example.minimoneybox.ui.login
 
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProviders
 import com.airbnb.lottie.LottieAnimationView
 import com.example.minimoneybox.R
+import com.example.minimoneybox.di.ViewModelProviderFactory
 import com.google.android.material.textfield.TextInputLayout
+import dagger.android.support.DaggerAppCompatActivity
+import javax.inject.Inject
+
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : DaggerAppCompatActivity () {
+
+    @Inject
+    lateinit var providerFactory: ViewModelProviderFactory
+
+    lateinit private var viewModel: LoginViewModel
 
     lateinit var btn_sign_in : Button
     lateinit var til_email : TextInputLayout
@@ -26,6 +35,10 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         setupViews()
+
+
+        viewModel = ViewModelProviders.of(this, providerFactory)[LoginViewModel::class.java]
+
     }
 
     private fun setupViews() {
@@ -40,6 +53,8 @@ class LoginActivity : AppCompatActivity() {
 
         btn_sign_in.setOnClickListener {
             animation.playAnimation()
+
+            viewModel.login("jaeren+androidtest@moneyboxapp.com", "P455word12")
         }
     }
 }

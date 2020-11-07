@@ -2,7 +2,7 @@ package com.example.minimoneybox.di.Login
 
 import androidx.lifecycle.ViewModel
 import com.example.minimoneybox.di.ViewModelKey
-import com.example.minimoneybox.ui.LoginViewModel
+import com.example.minimoneybox.ui.login.LoginViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

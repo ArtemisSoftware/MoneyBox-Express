@@ -2,6 +2,7 @@ package com.example.minimoneybox.di
 
 import com.example.minimoneybox.api.ApiConstants
 import com.example.minimoneybox.api.MoneyBoxApi
+import com.example.minimoneybox.repositories.Repository
 import com.example.minimoneybox.utils.interceptors.HeaderInterceptor
 import dagger.Module
 import dagger.Provides
@@ -18,14 +19,14 @@ import javax.inject.Singleton
 object NetworkModule {
 
     @Provides
-    @Singleton
-    internal fun provideOkHttpClient(): OkHttpClient? {
+    @Reusable
+    @JvmStatic
+    internal fun provideOkHttpClient(): OkHttpClient {
 
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val headerInterceptor =
-            HeaderInterceptor()
+        val headerInterceptor =  HeaderInterceptor()
 
         val client : OkHttpClient  =  OkHttpClient.Builder()
 
@@ -62,6 +63,14 @@ object NetworkModule {
     @JvmStatic
     fun provideMoneyBoxApiInterface(retrofit: Retrofit): MoneyBoxApi {
         return retrofit.create<MoneyBoxApi>(MoneyBoxApi::class.java)
+    }
+
+
+    @Provides
+    @Reusable
+    @JvmStatic
+    fun provideRepository(api: MoneyBoxApi): Repository {
+        return Repository(api)
     }
 
 }

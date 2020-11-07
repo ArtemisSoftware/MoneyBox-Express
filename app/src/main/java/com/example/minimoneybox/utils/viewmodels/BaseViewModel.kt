@@ -5,18 +5,12 @@ import androidx.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 
 
-abstract class BaseViewModel : ViewModel() {
+open abstract class BaseViewModel : ViewModel() {
 
-    protected lateinit var disposables: CompositeDisposable
-    lateinit var loading: MutableLiveData<Int>
+    protected var disposables: CompositeDisposable = CompositeDisposable()
+    var loading: MutableLiveData<Int> = MutableLiveData()
 
 
-
-    open fun BaseViewModel() {
-        disposables = CompositeDisposable()
-        loading = MutableLiveData()
-
-    }
 
     override fun onCleared() {
         super.onCleared()

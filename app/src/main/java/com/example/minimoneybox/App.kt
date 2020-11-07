@@ -1,5 +1,6 @@
 package com.example.minimoneybox
 
+import com.example.minimoneybox.di.DaggerAppComponent
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
