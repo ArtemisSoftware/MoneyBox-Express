@@ -3,11 +3,13 @@ package com.example.minimoneybox.utils
 class StringUtil {
 
 
-    /**
-     * Method to convert a double to a string
-     */
-    fun convertToString(value: Double): String {
-        return value.toBigDecimal().toPlainString()
+    companion object {
+        /**
+         * Method to convert a double to a string
+         */
+        @JvmStatic
+        fun convertToString(value: Double) : String = value.toBigDecimal().toPlainString()
     }
+
 
 }

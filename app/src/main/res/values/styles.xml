@@ -36,6 +36,12 @@
     </style>
 
 
+    <style name="viewParent">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
     <style name="card" parent="parent">
 
         <item name="android:layout_margin">10dp</item>
@@ -46,6 +52,17 @@
 
     </style>
 
+
+    <style name="cardTitle" parent="viewParent">
+        <item name="android:textSize">@dimen/card_title_text_size</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="cardText" parent="viewParent">
+        <item name="android:textSize">@dimen/card_text_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 
 
 </resources>
