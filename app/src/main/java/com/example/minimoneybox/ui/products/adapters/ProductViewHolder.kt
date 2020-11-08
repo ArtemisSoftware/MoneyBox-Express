@@ -1,4 +1,4 @@
-package com.example.minimoneybox.ui.login.adapters
+package com.example.minimoneybox.ui.products.adapters
 
 import android.view.View
 import androidx.annotation.NonNull

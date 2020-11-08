@@ -5,6 +5,7 @@
     <data>
 
         <import type="android.view.View"/>
+        <import type="com.example.minimoneybox.BuildConfig"/>
         <import type="com.example.minimoneybox.utils.StringUtil"/>
 
         <variable
@@ -32,7 +33,7 @@
                 android:id="@+id/textView"
                 style="@style/cardTitle"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:text="@{product.productInfo.name, default=product}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -69,6 +70,20 @@
                 android:text="@{StringUtil.convertToString(product.moneybox) , default=moneybox}"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+
+            <TextView
+                android:id="@+id/textView34"
+                android:text="@{StringUtil.convertToString(product.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
