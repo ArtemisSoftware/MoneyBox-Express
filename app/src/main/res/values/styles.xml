@@ -29,4 +29,23 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
+
+    <style name="parent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="card" parent="parent">
+
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:orientation">vertical</item>
+
+    </style>
+
+
+
 </resources>

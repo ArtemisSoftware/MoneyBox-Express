@@ -13,5 +13,7 @@
     <string name="input_valid">Input is valid!</string>
 <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
+    <string name="plan_value_">Plan Value:</string>
+    <string name="moneybox_">Moneybox:</string>
 
 </resources>
