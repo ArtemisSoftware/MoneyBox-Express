@@ -69,8 +69,8 @@ object NetworkModule {
     @Provides
     @Reusable
     @JvmStatic
-    fun provideRepository(api: MoneyBoxApi): Repository {
-        return Repository(api)
+    fun provideRepository(api: MoneyBoxApi, token: String): Repository {
+        return Repository(api, token)
     }
 
 }
