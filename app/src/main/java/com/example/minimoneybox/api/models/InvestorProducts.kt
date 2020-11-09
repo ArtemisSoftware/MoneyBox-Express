@@ -11,7 +11,7 @@ class InvestorProducts (
     val products: List<Product>
 )
 
-data class Product(
+data class Product (
 
     @SerializedName("Id")
     val id: Int,

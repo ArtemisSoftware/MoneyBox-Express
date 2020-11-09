@@ -9,27 +9,34 @@ import com.example.minimoneybox.ui.investor.adapters.ProductRecyclerAdapter
 
 class ProductsBinding {
 
-    @BindingAdapter("products")
-    fun setProducts(view: RecyclerView, items: List<Product>) {
+    companion object{
 
-        if (items == null) {
-            return
+        @JvmStatic
+        @BindingAdapter("products")
+        fun setProducts(view: RecyclerView, items: List<Product>?) {
+
+            if (items == null) {
+                return
+            }
+            val layoutManager = view.layoutManager
+
+            if (layoutManager == null) {
+                view.layoutManager = LinearLayoutManager(view.context)
+            }
+
+
+            var adapter: ProductRecyclerAdapter
+
+
+            if (view.adapter  == null) {
+                adapter = ProductRecyclerAdapter(view.context, items.toMutableList())
+                view.adapter = adapter
+            } else {
+                adapter = view.adapter as ProductRecyclerAdapter
+                adapter.update(items)
+            }
         }
-        val layoutManager = view.layoutManager
 
-        if (layoutManager == null) {
-            view.layoutManager = LinearLayoutManager(view.context)
-        }
-
-
-        var adapter: ProductRecyclerAdapter = view.adapter as ProductRecyclerAdapter
-
-        if (adapter == null) {
-            adapter = ProductRecyclerAdapter(view.context, items.toMutableList())
-            view.adapter = adapter
-        } else {
-            adapter.update(items)
-        }
     }
 
 }

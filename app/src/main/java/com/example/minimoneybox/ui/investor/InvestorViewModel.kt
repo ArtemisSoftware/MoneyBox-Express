@@ -16,7 +16,6 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
 
     var products : MutableLiveData<List<Product>> = MutableLiveData();
 
-
     fun getProducts(){
 
         repository.getInvestorProducts()
@@ -30,8 +29,8 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
                         disposables.add(d);
                     }
 
-                    override fun onNext(t: InvestorProducts) {
-                        TODO("Not yet implemented")
+                    override fun onNext(result: InvestorProducts) {
+                        products.value = result.products
                     }
 
                     override fun onError(e: Throwable) {
@@ -39,7 +38,7 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
                     }
 
                     override fun onComplete() {
-                        TODO("Not yet implemented")
+                        //TODO("Not yet implemented")
                     }
                 }
             )

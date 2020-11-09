@@ -13,6 +13,7 @@ interface MoneyBoxApi {
     @POST("users/login")
     fun login(@Body userLogin: User): Single<Session>
 
+    @Headers("Content-Type: application/json", "AppId: 3a97b932a9d449c981b595", "appVersion: 7.15.0", "apiVersion: 3.0.0")
     @GET("investorproducts")
     fun getInvestorProducts(@Header("Authorization") token: String): Observable<InvestorProducts>
 

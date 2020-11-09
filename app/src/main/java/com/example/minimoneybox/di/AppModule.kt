@@ -13,6 +13,6 @@ object AppModule {
     @Reusable
     @JvmStatic
     internal fun provideToken(application : Application): String {
-        return PreferencesUtil.getInvestorName(application.getApplicationContext())
+        return "Bearer " + PreferencesUtil.getToken(application.getApplicationContext())
     }
 }

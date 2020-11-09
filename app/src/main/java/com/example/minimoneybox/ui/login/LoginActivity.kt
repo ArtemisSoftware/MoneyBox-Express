@@ -41,11 +41,9 @@ class LoginActivity : DaggerAppCompatActivity () {
         setContentView(R.layout.activity_login)
         setupViews()
 
-
-        subscribeObservers()
-
         viewModel = ViewModelProviders.of(this, providerFactory)[LoginViewModel::class.java]
 
+        subscribeObservers()
     }
 
     private fun subscribeObservers(){

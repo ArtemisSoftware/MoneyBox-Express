@@ -21,7 +21,6 @@ class ProductsActivity : DaggerAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_products)
 
         viewModel = ViewModelProviders.of(this, providerFactory)[InvestorViewModel::class.java]
 
@@ -29,6 +28,6 @@ class ProductsActivity : DaggerAppCompatActivity() {
         activityBinding.setLifecycleOwner(this)
         activityBinding.setViewmodel(viewModel)
 
-        //viewModel.getProducts()
+        viewModel.getProducts()
     }
 }
