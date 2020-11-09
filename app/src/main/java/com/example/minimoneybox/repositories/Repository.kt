@@ -11,4 +11,8 @@ class Repository(private val api : MoneyBoxApi) {
         return api.login(User(email, password, "ANYTHING"))
     }
 
+
+//    fun getInvestorProducts(): Single<Session> {
+//        return api.getInvestorProducts(token)
+//    }
 }

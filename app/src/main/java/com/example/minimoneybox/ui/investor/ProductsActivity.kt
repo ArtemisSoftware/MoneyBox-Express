@@ -1,6 +1,5 @@
-package com.example.minimoneybox.ui.products
+package com.example.minimoneybox.ui.investor
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.minimoneybox.R
 import com.example.minimoneybox.di.ViewModelProviderFactory

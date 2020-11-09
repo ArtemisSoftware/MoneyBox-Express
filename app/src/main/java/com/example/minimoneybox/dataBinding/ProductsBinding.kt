@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minimoneybox.api.models.Product
-import com.example.minimoneybox.ui.products.adapters.ProductRecyclerAdapter
+import com.example.minimoneybox.ui.investor.adapters.ProductRecyclerAdapter
 
 
 class ProductsBinding {

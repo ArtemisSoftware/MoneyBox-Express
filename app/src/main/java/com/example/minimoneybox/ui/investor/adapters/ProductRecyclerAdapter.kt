@@ -1,4 +1,4 @@
-package com.example.minimoneybox.ui.products.adapters
+package com.example.minimoneybox.ui.investor.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
