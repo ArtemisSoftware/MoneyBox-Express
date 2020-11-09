@@ -6,8 +6,8 @@
         <import type="com.example.minimoneybox.utils.StringUtil"/>
 
         <variable
-            name="investment"
-            type="com.example.minimoneybox.ui.investor.models.Investment" />
+            name="product"
+            type="com.example.minimoneybox.api.models.Product" />
 
     </data>
 
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
-            android:text="@{investment.product.productInfo.name, default=name}"
+            android:text="@{product.productInfo.name, default=name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:text="@{StringUtil.convertToString(investment.product.planValue) , default=value}"
+            android:text="@{StringUtil.convertToString(product.planValue) , default=value}"
             app:layout_constraintStart_toEndOf="@+id/textView8"
             app:layout_constraintTop_toTopOf="@+id/textView8" />
 
@@ -58,12 +58,12 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{StringUtil.convertToString(investment.product.moneybox) , default=moneybox}"
+            android:text="@{StringUtil.convertToString(product.moneybox) , default=moneybox}"
             app:layout_constraintStart_toStartOf="@+id/textView9"
             app:layout_constraintTop_toTopOf="@+id/textView10" />
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_payment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Button"

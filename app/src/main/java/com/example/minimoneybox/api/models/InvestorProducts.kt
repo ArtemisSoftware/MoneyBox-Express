@@ -1,6 +1,8 @@
 package com.example.minimoneybox.api.models
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 class InvestorProducts (
 
@@ -11,6 +13,7 @@ class InvestorProducts (
     val products: List<Product>
 )
 
+@Parcelize
 data class Product (
 
     @SerializedName("Id")
@@ -24,10 +27,11 @@ data class Product (
 
     @SerializedName("Product")
     val productInfo: ProductInfo
-)
+) : Parcelable
 
-data class ProductInfo(
+@Parcelize
+data class ProductInfo (
 
     @SerializedName("Name")
     val name: String
-)
+) : Parcelable

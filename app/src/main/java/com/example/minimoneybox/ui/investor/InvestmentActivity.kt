@@ -1,10 +1,10 @@
 package com.example.minimoneybox.ui.investor
 
-import com.example.minimoneybox.R
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
-import butterknife.ButterKnife
+import com.example.minimoneybox.R
+import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityInvestmentBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -28,6 +28,19 @@ class InvestmentActivity  : DaggerAppCompatActivity() {
 
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_investment)
 
-        ButterKnife.bind(this)
+        intent.extras?.let{
+            activityBinding.product = it.getParcelable<Product>(getString(R.string.argument_product))
+        }
+
     }
+
+
+    private fun setupViews() {
+
+        activityBinding.btnPayment.setOnClickListener {
+
+            viewModel.addPayment(activityBinding.product.id, 10.0)
+        }
+    }
+
 }
