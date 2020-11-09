@@ -17,5 +17,6 @@
     <string name="moneybox_">Moneybox:</string>
     <string name="hello">Hello</string>
     <string name="total_plan_value_">Total Plan Value:</string>
+    <string name="argument_investor_name">investorName</string>
 
 </resources>

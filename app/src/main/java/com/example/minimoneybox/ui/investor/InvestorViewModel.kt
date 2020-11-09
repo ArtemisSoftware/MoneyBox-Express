@@ -1,6 +1,8 @@
 package com.example.minimoneybox.ui.investor
 
+import androidx.lifecycle.MutableLiveData
 import com.example.minimoneybox.api.models.InvestorProducts
+import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.repositories.Repository
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import io.reactivex.Observer
@@ -10,6 +12,10 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class InvestorViewModel @Inject constructor(private val repository: Repository) : BaseViewModel(){
+
+
+    var products : MutableLiveData<List<Product>> = MutableLiveData();
+
 
     fun getProducts(){
 

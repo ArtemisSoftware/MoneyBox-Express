@@ -8,6 +8,10 @@
 
         <import type="android.view.View"/>
 
+        <variable
+            name="viewmodel"
+            type="com.example.minimoneybox.ui.investor.InvestorViewModel"/>
+
 
     </data>
 
@@ -87,7 +91,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 style="@style/recycler"
-
+                products="@{viewmodel.products}"
                 tools:listitem="@layout/item_product"/>
             <!--  -->
         </LinearLayout>

@@ -24,6 +24,7 @@ object NetworkModule {
     internal fun provideOkHttpClient(): OkHttpClient {
 
         val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         val headerInterceptor =  HeaderInterceptor()
@@ -32,7 +33,7 @@ object NetworkModule {
 
             .addInterceptor(loggingInterceptor)
 
-            .addInterceptor(headerInterceptor)
+            //.addInterceptor(headerInterceptor)
 
             .connectTimeout(ApiConstants.CONNECTION_TIMEOUT, TimeUnit.SECONDS) //time between each byte read from the server
             .readTimeout(ApiConstants.READ_TIMEOUT, TimeUnit.SECONDS) //time between each byte sent to server

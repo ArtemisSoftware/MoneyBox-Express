@@ -2,6 +2,7 @@ package com.example.minimoneybox.ui.login
 
 import com.example.minimoneybox.api.models.Session
 import com.example.minimoneybox.repositories.Repository
+import com.example.minimoneybox.utils.Resouce
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +29,8 @@ class LoginViewModel @Inject constructor(private val repository: Repository) : B
                     }
 
                     override fun onSuccess(result: Session) {
-                        TODO("Not yet implemented")
+                        message.value = Resouce.success(result.session.bearerToken, "")
+
                     }
 
                     override fun onError(e: Throwable) {

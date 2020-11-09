@@ -1,12 +1,17 @@
 package com.example.minimoneybox.ui.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.airbnb.lottie.LottieAnimationView
 import com.example.minimoneybox.R
 import com.example.minimoneybox.di.ViewModelProviderFactory
+import com.example.minimoneybox.ui.investor.ProductsActivity
+import com.example.minimoneybox.utils.PreferencesUtil
+import com.example.minimoneybox.utils.Resouce
 import com.google.android.material.textfield.TextInputLayout
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -37,9 +42,47 @@ class LoginActivity : DaggerAppCompatActivity () {
         setupViews()
 
 
+        subscribeObservers()
+
         viewModel = ViewModelProviders.of(this, providerFactory)[LoginViewModel::class.java]
 
     }
+
+    private fun subscribeObservers(){
+
+        viewModel.observeMessage().observe(this, object : Observer<Resouce<String>> {
+
+            override fun onChanged(resource: Resouce<String>){
+
+                when (resource.status) {
+
+                    Resouce.Status.SUCCESS -> {
+                        initInvestor((resource.data as String))
+                    }
+
+                    Resouce.Status.ERROR -> {}
+
+                    else -> { // Note the block
+                        print("not found")
+                    }
+                }
+            }
+        })
+
+    }
+
+
+    private fun initInvestor(token : String){
+        PreferencesUtil.saveInvestor(applicationContext, et_name.text.toString(), token)
+        animation.playAnimation()
+
+        val intent = Intent(this, ProductsActivity::class.java).apply {
+            putExtra(getString(R.string.argument_investor_name), et_name.text.toString())
+        }
+        startActivity(intent)
+
+    }
+
 
     private fun setupViews() {
         btn_sign_in = findViewById(R.id.btn_sign_in)
@@ -52,7 +95,7 @@ class LoginActivity : DaggerAppCompatActivity () {
         animation = findViewById(R.id.animation)
 
         btn_sign_in.setOnClickListener {
-            animation.playAnimation()
+            //--animation.playAnimation()
 
             viewModel.login("jaeren+androidtest@moneyboxapp.com", "P455word12")
         }
