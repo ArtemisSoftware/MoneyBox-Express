@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.investor.InvestorActivity"></activity>
+        <activity android:name=".ui.investor.InvestmentActivity"></activity>
         <activity android:name=".ui.investor.ProductsActivity" />
         <activity
             android:name=".ui.login.LoginActivity"
