@@ -4,6 +4,7 @@ import com.example.minimoneybox.R
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
+import butterknife.ButterKnife
 import com.example.minimoneybox.databinding.ActivityInvestmentBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
 import dagger.android.support.DaggerAppCompatActivity
@@ -26,5 +27,7 @@ class InvestmentActivity  : DaggerAppCompatActivity() {
         viewModel = ViewModelProviders.of(this, providerFactory)[InvestorViewModel::class.java]
 
         activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_investment)
+
+        ButterKnife.bind(this)
     }
 }

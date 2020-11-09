@@ -47,6 +47,10 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.0.0'
 
 
+    implementation 'com.jakewharton:butterknife:8.8.1'
+    kapt 'com.jakewharton:butterknife-compiler:8.8.1'
+
+
     // -------- retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
