@@ -14,5 +14,5 @@ public abstract class LoginViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
-    abstract fun bindAutenticacaoViewModel(viewModel: LoginViewModel): ViewModel
+    abstract fun bindLoginViewModel(viewModel: LoginViewModel): ViewModel
 }
