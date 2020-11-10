@@ -1,33 +1,57 @@
 package com.example.minimoneybox.ui.investor
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
+import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityProductsBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
-import dagger.android.support.DaggerAppCompatActivity
+import com.example.minimoneybox.ui.BaseDaggerActivity
+import com.example.minimoneybox.ui.investor.adapters.OnProductListener
+import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import javax.inject.Inject
 
-class ProductsActivity : DaggerAppCompatActivity() {
+class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
-    lateinit var activityBinding : ActivityProductsBinding;
-
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
-
+    lateinit var activityProductsBinding: ActivityProductsBinding
 
     lateinit private var viewModel: InvestorViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
+
+    override fun initActivity(savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(this, providerFactory)[InvestorViewModel::class.java]
 
-        activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_products)
-        activityBinding.setLifecycleOwner(this)
-        activityBinding.setViewmodel(viewModel)
+        activityProductsBinding = activityBinding as ActivityProductsBinding
+
+        activityProductsBinding.setLifecycleOwner(this)
+        activityProductsBinding.setViewmodel(viewModel)
+        activityProductsBinding.setListener(this)
 
         viewModel.getProducts()
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.activity_products
+    }
+
+    override fun getViewModel(): BaseViewModel {
+        return viewModel
+    }
+
+
+
+    override fun OnProductClick(product: Product?) {
+        val intent = Intent(this, InvestmentActivity::class.java).apply {
+            putExtra(getString(R.string.argument_product), product)
+        }
+        startActivity(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        //viewModel.getProducts()
     }
 }

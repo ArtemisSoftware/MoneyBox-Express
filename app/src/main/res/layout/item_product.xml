@@ -13,9 +13,6 @@
             type="com.example.minimoneybox.api.models.Product" />
 
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener"/>-->
 
 
     </data>

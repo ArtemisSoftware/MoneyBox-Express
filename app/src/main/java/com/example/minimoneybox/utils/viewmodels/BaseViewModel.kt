@@ -1,5 +1,6 @@
 package com.example.minimoneybox.utils.viewmodels
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.minimoneybox.utils.Resouce
@@ -15,6 +16,11 @@ open abstract class BaseViewModel : ViewModel() {
 
     open fun observeMessage(): MutableLiveData<Resouce<String>> {
         return message
+    }
+
+
+    protected open fun showProgressBar(visible: Boolean) {
+        loading.value = if (visible) View.VISIBLE else View.INVISIBLE
     }
 
 

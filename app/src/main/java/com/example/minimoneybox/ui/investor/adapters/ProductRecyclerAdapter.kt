@@ -10,12 +10,12 @@ import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ItemProductBinding
 
 
-class ProductRecyclerAdapter(val context : Context, var products : MutableList<Product>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class ProductRecyclerAdapter(val context : Context, var products : MutableList<Product>, val listener : OnProductListener) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val binding: ItemProductBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.item_product, parent, false)
-        return ProductViewHolder(binding.getRoot())
+        return ProductViewHolder(binding.getRoot(), listener)
     }
 
     override fun getItemCount(): Int {

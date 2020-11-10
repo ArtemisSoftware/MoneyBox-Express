@@ -20,7 +20,7 @@ class Repository(private val api : MoneyBoxApi, private val token : String) {
         return api.getInvestorProducts(token)
     }
 
-    fun addPayment(payment: Payment): Single<PaymentReceipt> {
+    fun addPayment(payment: Payment): Observable<PaymentReceipt> {
         return api.addPayment(token, payment)
     }
 }

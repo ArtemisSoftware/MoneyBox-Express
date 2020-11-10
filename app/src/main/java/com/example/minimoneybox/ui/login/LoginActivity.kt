@@ -72,7 +72,6 @@ class LoginActivity : DaggerAppCompatActivity () {
 
     private fun initInvestor(token : String){
         PreferencesUtil.saveInvestor(applicationContext, et_name.text.toString(), token)
-        animation.playAnimation()
 
         val intent = Intent(this, ProductsActivity::class.java).apply {
             putExtra(getString(R.string.argument_investor_name), et_name.text.toString())
@@ -93,8 +92,12 @@ class LoginActivity : DaggerAppCompatActivity () {
         animation = findViewById(R.id.animation)
 
         btn_sign_in.setOnClickListener {
-            //--animation.playAnimation()
+            animation.playAnimation()
 
+//            val intent = Intent(this, ProductsActivity::class.java).apply {
+//                putExtra(getString(R.string.argument_investor_name), et_name.text.toString())
+//            }
+//            startActivity(intent)
             viewModel.login("jaeren+androidtest@moneyboxapp.com", "P455word12")
         }
     }

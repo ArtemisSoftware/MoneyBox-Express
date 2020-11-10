@@ -4,5 +4,5 @@ import com.example.minimoneybox.api.models.Product
 
 interface OnProductListener {
 
-    fun OnProductClick(product : Product)
+    fun OnProductClick(product : Product?)
 }

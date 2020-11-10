@@ -13,11 +13,12 @@
     <string name="input_valid">Input is valid!</string>
     <!--    Lottie files-->
     <string name="lottie_owl_coin_shower">owl_coin_shower.json</string>
-    <string name="plan_value_">Plan Value:</string>
-    <string name="moneybox_">Moneybox:</string>
+    <string name="plan_value_">Plan Value: £</string>
+    <string name="moneybox_">Moneybox: £</string>
     <string name="hello">Hello</string>
-    <string name="total_plan_value_">Total Plan Value:</string>
+    <string name="total_plan_value_">Total Plan Value: £</string>
     <string name="argument_investor_name">investorName</string>
     <string name="argument_product">investment</string>
+    <string name="add_pounds">Add £10</string>
 
 </resources>

@@ -15,6 +15,10 @@ class Resouce<T>(val status: Status, val data : T? = null, val message : String)
             return Resouce(Status.SUCCESS, data, message)
         }
 
+        fun <T> success(message: String): Resouce<T> {
+            return Resouce(Status.SUCCESS, null, message)
+        }
+
         fun <T> error(message: String): Resouce<T> {
             return Resouce(Status.ERROR, null, message)
         }
