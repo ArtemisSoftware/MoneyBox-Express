@@ -74,6 +74,8 @@ class InvestmentActivity  : BaseDaggerActivity() {
                         print("not found")
                     }
                 }
+
+                btn_payment.isEnabled = true
             }
         })
 
@@ -88,6 +90,7 @@ class InvestmentActivity  : BaseDaggerActivity() {
         activityInvestmentBinding.btnPayment.setOnClickListener {
 
             viewModel.product?.value?.let {
+                btn_payment.isEnabled = false
                 viewModel.addPayment(it.id, 10.0)
             }
         }

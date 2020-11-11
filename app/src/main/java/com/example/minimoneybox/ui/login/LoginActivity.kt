@@ -10,58 +10,71 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.airbnb.lottie.LottieAnimationView
 import com.example.minimoneybox.R
-import com.example.minimoneybox.di.ViewModelProviderFactory
+import com.example.minimoneybox.databinding.ActivityLoginBinding
+import com.example.minimoneybox.databinding.ActivityProductsBinding
+import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.ui.investor.ProductsActivity
+import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.PreferencesUtil
 import com.example.minimoneybox.utils.Resouce
+import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.google.android.material.textfield.TextInputLayout
 import com.mobsandgeeks.saripaar.ValidationError
 import com.mobsandgeeks.saripaar.Validator
 import com.mobsandgeeks.saripaar.annotation.NotEmpty
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
 
 
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener {
+class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
 
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
-
-    lateinit private var viewModel: LoginViewModel
 
     lateinit var btn_sign_in : Button
     lateinit var til_email : TextInputLayout
-
-    @NotEmpty(message = "Field cannot be empty")
-    lateinit var et_email : EditText
-
     lateinit var til_password : TextInputLayout
-
-    @NotEmpty(message = "Field cannot be empty 33")
-    lateinit var et_password : EditText
     lateinit var til_name : TextInputLayout
     lateinit var et_name : EditText
     lateinit var animation : LottieAnimationView
 
+
+
+    lateinit var activityLoginBinding: ActivityLoginBinding
+
+    lateinit private var viewModel: LoginViewModel
+
+    @NotEmpty(message = "Field cannot be empty")
+    lateinit var et_email : EditText
+
+    @NotEmpty(message = "Field cannot be empty 33")
+    lateinit var et_password : EditText
+
     lateinit var validator: Validator
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+    override fun initActivity(savedInstanceState: Bundle?) {
 
         validator = Validator(this);
         validator.setValidationListener(this);
-
 
         setupViews()
 
         viewModel = ViewModelProviders.of(this, providerFactory)[LoginViewModel::class.java]
 
+        activityLoginBinding = activityBinding as ActivityLoginBinding
+
+        activityLoginBinding.setLifecycleOwner(this)
+        activityLoginBinding.setViewmodel(viewModel)
+
         subscribeObservers()
+    }
+
+    override fun getLayout(): Int {
+        return R.layout.activity_login
+    }
+
+    override fun getViewModel(): BaseViewModel {
+        return viewModel
     }
 
     private fun subscribeObservers(){
@@ -73,10 +86,14 @@ class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener 
                 when (resource.status) {
 
                     Resouce.Status.SUCCESS -> {
-                        initInvestor((resource.data as String))
+                        initProducts((resource.data as String))
                     }
 
-                    Resouce.Status.ERROR -> {}
+                    Resouce.Status.ERROR -> {
+
+                        btn_sign_in.isEnabled = true
+                        MessagesUtil.error(this@LoginActivity, resource.message)
+                    }
 
                     else -> { // Note the block
                         print("not found")
@@ -84,11 +101,14 @@ class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener 
                 }
             }
         })
-
     }
 
 
-    private fun initInvestor(token : String){
+    /**
+     * Method to initiate the product activity
+     */
+    private fun initProducts(token : String){
+
         PreferencesUtil.saveInvestor(applicationContext, et_name.text.toString(), token)
 
         val intent = Intent(this, ProductsActivity::class.java).apply {
@@ -96,6 +116,7 @@ class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener 
         }
         startActivity(intent)
 
+        finish()
     }
 
 
@@ -112,8 +133,10 @@ class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener 
         //TODO: remove, just for test
         et_email.setText("jaeren+androidtest@moneyboxapp.com")
         et_password.setText("P455word12")
+        et_name.setText("Milo kraken")
 
         btn_sign_in.setOnClickListener {
+            btn_sign_in.isEnabled = false
             validator.validate();
         }
     }
@@ -131,6 +154,8 @@ class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener 
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show()
             }
         }
+
+        btn_sign_in.isEnabled = true
     }
 
     override fun onValidationSucceeded() {

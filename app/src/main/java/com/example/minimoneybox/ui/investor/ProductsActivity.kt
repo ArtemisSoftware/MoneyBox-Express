@@ -2,16 +2,13 @@ package com.example.minimoneybox.ui.investor
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityProductsBinding
-import com.example.minimoneybox.di.ViewModelProviderFactory
 import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.ui.investor.adapters.OnProductListener
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
-import javax.inject.Inject
 
 class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
@@ -30,12 +27,10 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         activityProductsBinding.setViewmodel(viewModel)
         activityProductsBinding.setListener(this)
 
-
         intent.extras?.let{
             activityProductsBinding.investorName = it.getString(getString(R.string.argument_investor_name))
         }
 
-        //viewModel.getProducts()
     }
 
     override fun getLayout(): Int {

@@ -14,7 +14,12 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(private val repository: Repository) : BaseViewModel(){
 
 
+    /**
+     * Method to login a user
+     */
     fun login(email: String, password: String){
+
+        showProgressBar(true)
 
         repository.authenticate(email, password)
             .subscribeOn(Schedulers.io())
@@ -23,18 +28,20 @@ class LoginViewModel @Inject constructor(private val repository: Repository) : B
 
                 object : SingleObserver<Session?> {
 
-
                     override fun onSubscribe(d: Disposable) {
                         disposables.add(d)
                     }
 
                     override fun onSuccess(result: Session) {
                         message.value = Resouce.success(result.session.bearerToken, "")
-
+                        showProgressBar(false)
                     }
 
                     override fun onError(e: Throwable) {
-                        TODO("Not yet implemented")
+                        e.message?.let {
+                            message.value = Resouce.error(it)
+                        }
+                        showProgressBar(false)
                     }
 
                 }

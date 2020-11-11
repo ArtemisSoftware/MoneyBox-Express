@@ -33,15 +33,16 @@ object NetworkModule {
 
             .addInterceptor(loggingInterceptor)
 
-            //.addInterceptor(headerInterceptor)
+            .addInterceptor(headerInterceptor)
 
             .connectTimeout(ApiConstants.CONNECTION_TIMEOUT, TimeUnit.SECONDS) //time between each byte read from the server
             .readTimeout(ApiConstants.READ_TIMEOUT, TimeUnit.SECONDS) //time between each byte sent to server
             .writeTimeout(ApiConstants.WRITE_TIMEOUT, TimeUnit.SECONDS)
             .retryOnConnectionFailure(false)
             .build()
-
         return client
+
+
     }
 
 
