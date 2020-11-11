@@ -2,7 +2,7 @@ package com.example.minimoneybox.ui.login
 
 import com.example.minimoneybox.api.models.Session
 import com.example.minimoneybox.repositories.Repository
-import com.example.minimoneybox.utils.Resouce
+import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -33,13 +33,13 @@ class LoginViewModel @Inject constructor(private val repository: Repository) : B
                     }
 
                     override fun onSuccess(result: Session) {
-                        message.value = Resouce.success(result.session.bearerToken, "")
+                        message.value = Resource.success(result.session.bearerToken, "")
                         showProgressBar(false)
                     }
 
                     override fun onError(e: Throwable) {
                         e.message?.let {
-                            message.value = Resouce.error(it)
+                            message.value = Resource.error(it)
                         }
                         showProgressBar(false)
                     }

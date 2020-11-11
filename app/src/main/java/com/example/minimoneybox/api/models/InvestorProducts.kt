@@ -4,13 +4,15 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
-class InvestorProducts (
+class InvestorProducts  (
 
     @SerializedName("TotalPlanValue")
     val totalPlanValue: Double,
 
     @SerializedName("ProductResponses")
     val products: List<Product>
+
+
 )
 
 @Parcelize

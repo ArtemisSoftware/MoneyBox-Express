@@ -4,14 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import com.example.minimoneybox.api.models.*
 import com.example.minimoneybox.api.models.requests.Payment
 import com.example.minimoneybox.repositories.Repository
-import com.example.minimoneybox.utils.Resouce
+import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.functions.Function
 import io.reactivex.functions.Predicate
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
@@ -88,11 +86,11 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
                     }
 
                     override fun onError(e: Throwable) {
-                        TODO("Not yet implemented")
+                        formatError(e)
                     }
 
                     override fun onComplete() {
-                        message.value = Resouce.success("Payment added")
+                        message.value = Resource.success("Payment added")
                         showProgressBar(false)
                     }
                 }

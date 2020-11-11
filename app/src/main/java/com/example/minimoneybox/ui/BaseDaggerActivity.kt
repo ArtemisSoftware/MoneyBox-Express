@@ -1,11 +1,16 @@
 package com.example.minimoneybox.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityBaseDaggerBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
+import com.example.minimoneybox.ui.investor.ProductsActivity
+import com.example.minimoneybox.ui.login.LoginActivity
+import com.example.minimoneybox.utils.PreferencesUtil
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
@@ -31,7 +36,27 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(){
         activityBaseBinding.setLifecycleOwner(this)
         activityBaseBinding.setBaseviewmodel(getViewModel())
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+
     }
+
+
+    /**
+     * Method that initiates the login activity
+     */
+    protected fun initLogin(){
+
+        PreferencesUtil.deleteInvestor(this)
+
+        val intent = Intent(this, LoginActivity::class.java)
+        startActivity(intent)
+
+        finish()
+    }
+
+
+
+
 
 
     /**

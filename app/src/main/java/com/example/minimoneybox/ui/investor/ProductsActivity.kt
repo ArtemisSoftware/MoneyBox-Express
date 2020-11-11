@@ -2,6 +2,7 @@ package com.example.minimoneybox.ui.investor
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.models.Product
@@ -27,8 +28,12 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         activityProductsBinding.setViewmodel(viewModel)
         activityProductsBinding.setListener(this)
 
-        intent.extras?.let{
-            activityProductsBinding.investorName = it.getString(getString(R.string.argument_investor_name))
+
+        if(savedInstanceState == null) {
+            getIncomingIntent();
+        }
+        else{
+            activityProductsBinding.investorName = savedInstanceState.getString(getString(R.string.argument_investor_name))
         }
 
     }
@@ -42,6 +47,14 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
     }
 
 
+    private fun getIncomingIntent() {
+        intent.extras?.let{
+            activityProductsBinding.investorName = it.getString(getString(R.string.argument_investor_name))
+        }
+    }
+
+
+
     override fun OnProductClick(product: Product?) {
         val intent = Intent(this, InvestmentActivity::class.java).apply {
             putExtra(getString(R.string.argument_product), product)
@@ -52,5 +65,13 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
     override fun onResume() {
         super.onResume()
         viewModel.getProducts()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+
+        intent.extras?.let{
+            outState.putString(getString(R.string.argument_investor_name), it.getString(getString(R.string.argument_investor_name)))
+        }
     }
 }

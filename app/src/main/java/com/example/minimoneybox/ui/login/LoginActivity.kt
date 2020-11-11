@@ -11,12 +11,11 @@ import androidx.lifecycle.ViewModelProviders
 import com.airbnb.lottie.LottieAnimationView
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityLoginBinding
-import com.example.minimoneybox.databinding.ActivityProductsBinding
 import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.ui.investor.ProductsActivity
 import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.PreferencesUtil
-import com.example.minimoneybox.utils.Resouce
+import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.google.android.material.textfield.TextInputLayout
 import com.mobsandgeeks.saripaar.ValidationError
@@ -79,17 +78,17 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
 
     private fun subscribeObservers(){
 
-        viewModel.observeMessage().observe(this, object : Observer<Resouce<String>> {
+        viewModel.observeMessage().observe(this, object : Observer<Resource<String>> {
 
-            override fun onChanged(resource: Resouce<String>){
+            override fun onChanged(resource: Resource<String>){
 
                 when (resource.status) {
 
-                    Resouce.Status.SUCCESS -> {
+                    Resource.Status.SUCCESS -> {
                         initProducts((resource.data as String))
                     }
 
-                    Resouce.Status.ERROR -> {
+                    Resource.Status.ERROR -> {
 
                         btn_sign_in.isEnabled = true
                         MessagesUtil.error(this@LoginActivity, resource.message)
