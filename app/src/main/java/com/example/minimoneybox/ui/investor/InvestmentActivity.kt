@@ -11,6 +11,7 @@ import com.example.minimoneybox.utils.Resouce
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
 import com.romainpiel.shimmer.Shimmer
+import com.yarolegovich.lovelydialog.LovelyInfoDialog
 import kotlinx.android.synthetic.main.activity_investment.*
 
 
@@ -101,6 +102,14 @@ class InvestmentActivity  : BaseDaggerActivity() {
                 .setDirection(Shimmer.ANIMATION_DIRECTION_RTL).start(txt_total)
 
 
+            var lolo = LovelyInfoDialog(this)
+            lolo
+                .setTopColorRes(R.color.designMainColor)
+                .setIcon(R.drawable.ic_cash)
+
+                .setTitle("R.string.info_title")
+                .setMessage("R.string.info_message")
+                .show();
                 Snackbar.make(activityInvestmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
 
         }
