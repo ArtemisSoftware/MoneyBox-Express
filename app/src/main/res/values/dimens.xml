@@ -8,8 +8,23 @@
 
 
 
-    <dimen name="card_title_text_size">20dp</dimen>
+    <dimen name="card_title_text_size">23dp</dimen>
 
-    <dimen name="card_text_size">14dp</dimen>
+    <dimen name="card_sub_title_text_size">16dp</dimen>
+    <dimen name="title_text_size">20dp</dimen>
+
+    <dimen name="card_text_size">18dp</dimen>
+
+    <dimen name="small_money_text_size">17dp</dimen>
+
+    <dimen name="big_money_text_size">29dp</dimen>
+
+
+
+    <dimen name="headerTextSize">25sp</dimen>
+    <dimen name="normalPadding">20dp</dimen>
+    <dimen name="headerMoreTextSize">18sp</dimen>
+    <dimen name="card_margin">5dp</dimen>
+    <dimen name="frutorial_title">15sp</dimen>
 
 </resources>

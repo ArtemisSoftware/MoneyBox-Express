@@ -51,6 +51,12 @@ dependencies {
     implementation 'com.airbnb.android:lottie:3.0.0'
 
 
+
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+
+
     // -------- retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'

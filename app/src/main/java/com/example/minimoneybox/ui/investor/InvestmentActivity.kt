@@ -1,43 +1,51 @@
 package com.example.minimoneybox.ui.investor
 
 import android.os.Bundle
-import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityInvestmentBinding
-import com.example.minimoneybox.di.ViewModelProviderFactory
+import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.utils.Resouce
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import com.example.minimoneybox.utils.viewmodels.BaseViewModel
+import com.google.android.material.snackbar.Snackbar
+import com.romainpiel.shimmer.Shimmer
+import kotlinx.android.synthetic.main.activity_investment.*
 
-class InvestmentActivity  : DaggerAppCompatActivity() {
 
-    lateinit var activityBinding : ActivityInvestmentBinding
+class InvestmentActivity  : BaseDaggerActivity() {
 
-    @Inject
-    lateinit var providerFactory: ViewModelProviderFactory
+    lateinit var activityInvestmentBinding: ActivityInvestmentBinding
+
 
 
     lateinit private var viewModel: InvestorViewModel
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initActivity(savedInstanceState: Bundle?) {
 
         viewModel = ViewModelProviders.of(this, providerFactory)[InvestorViewModel::class.java]
 
-        activityBinding = DataBindingUtil.setContentView(this, R.layout.activity_investment)
-        activityBinding.setViewmodel(viewModel)
-        activityBinding.setLifecycleOwner(this)
+        activityInvestmentBinding = activityBinding as ActivityInvestmentBinding
 
+        activityInvestmentBinding.setLifecycleOwner(this)
+        activityInvestmentBinding.setViewmodel(viewModel)
+
+        subscribeObservers()
 
         intent.extras?.let{
             viewModel.product.value = it.getParcelable<Product>(getString(R.string.argument_product))
             setupViews()
         }
+    }
 
+    override fun getLayout(): Int {
+        return R.layout.activity_investment
+    }
+
+    override fun getViewModel(): BaseViewModel {
+        return viewModel
     }
 
 
@@ -51,11 +59,12 @@ class InvestmentActivity  : DaggerAppCompatActivity() {
 
                     Resouce.Status.SUCCESS -> {
 
+                        showSuccess(resource.message)
                     }
 
                     Resouce.Status.ERROR -> {}
 
-                    else -> { // Note the block
+                    else -> {
                         print("not found")
                     }
                 }
@@ -70,13 +79,33 @@ class InvestmentActivity  : DaggerAppCompatActivity() {
 
     private fun setupViews() {
 
-        activityBinding.btnPayment.setOnClickListener {
+        activityInvestmentBinding.btnPayment.setOnClickListener {
 
-            activityBinding.viewmodel?.product?.value?.let {
+            viewModel.product?.value?.let {
                 viewModel.addPayment(it.id, 10.0)
             }
-
         }
     }
 
+
+    /**
+     * Method to show the success state
+     */
+    private fun showSuccess(message : String?){
+
+        message?.let {
+
+            val shimmer = Shimmer()
+            shimmer.setDuration(500)
+                .setStartDelay(300)
+                .setDirection(Shimmer.ANIMATION_DIRECTION_RTL).start(txt_total)
+
+
+                Snackbar.make(activityInvestmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
+
+        }
+
+
+
+    }
 }

@@ -30,7 +30,12 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         activityProductsBinding.setViewmodel(viewModel)
         activityProductsBinding.setListener(this)
 
-        viewModel.getProducts()
+
+        intent.extras?.let{
+            activityProductsBinding.investorName = it.getString(getString(R.string.argument_investor_name))
+        }
+
+        //viewModel.getProducts()
     }
 
     override fun getLayout(): Int {
@@ -42,7 +47,6 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
     }
 
 
-
     override fun OnProductClick(product: Product?) {
         val intent = Intent(this, InvestmentActivity::class.java).apply {
             putExtra(getString(R.string.argument_product), product)
@@ -52,6 +56,6 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
     override fun onResume() {
         super.onResume()
-        //viewModel.getProducts()
+        viewModel.getProducts()
     }
 }

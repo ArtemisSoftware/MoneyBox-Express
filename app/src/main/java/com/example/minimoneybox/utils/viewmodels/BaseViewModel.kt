@@ -13,6 +13,9 @@ open abstract class BaseViewModel : ViewModel() {
     var loading: MutableLiveData<Int> = MutableLiveData()
     var message: MutableLiveData<Resouce<String>> = MutableLiveData()
 
+    init{
+        loading.value = View.INVISIBLE
+    }
 
     open fun observeMessage(): MutableLiveData<Resouce<String>> {
         return message

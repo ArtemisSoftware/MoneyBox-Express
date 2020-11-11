@@ -18,10 +18,12 @@ import javax.inject.Inject
 
 class InvestorViewModel @Inject constructor(private val repository: Repository) : BaseViewModel(){
 
-
-    var products : MutableLiveData<List<Product>> = MutableLiveData();
+    var products : MutableLiveData<InvestorProducts> = MutableLiveData();
     var product : MutableLiveData<Product> = MutableLiveData();
 
+    /**
+     * Method to get all the products
+     */
     fun getProducts(){
 
         showProgressBar(true)
@@ -38,7 +40,7 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
                     }
 
                     override fun onNext(result: InvestorProducts) {
-                        products.value = result.products
+                        products.value = result
                         showProgressBar(false)
                     }
 
@@ -55,9 +57,14 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
     }
 
 
+    /**
+     * Method to add a payment
+     */
     fun addPayment(investorProductId : Int, amount: Double){
 
         val payment = Payment(amount, investorProductId)
+
+        showProgressBar(true)
 
         repository.addPayment(payment)
             .flatMap { t ->  repository.getInvestorProducts()}
@@ -86,6 +93,7 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
 
                     override fun onComplete() {
                         message.value = Resouce.success("Payment added")
+                        showProgressBar(false)
                     }
                 }
             )

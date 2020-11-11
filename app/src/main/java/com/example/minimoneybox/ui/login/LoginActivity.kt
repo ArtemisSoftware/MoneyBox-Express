@@ -2,8 +2,10 @@ package com.example.minimoneybox.ui.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.airbnb.lottie.LottieAnimationView
@@ -13,6 +15,9 @@ import com.example.minimoneybox.ui.investor.ProductsActivity
 import com.example.minimoneybox.utils.PreferencesUtil
 import com.example.minimoneybox.utils.Resouce
 import com.google.android.material.textfield.TextInputLayout
+import com.mobsandgeeks.saripaar.ValidationError
+import com.mobsandgeeks.saripaar.Validator
+import com.mobsandgeeks.saripaar.annotation.NotEmpty
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
@@ -20,7 +25,7 @@ import javax.inject.Inject
 /**
  * A login screen that offers login via email/password.
  */
-class LoginActivity : DaggerAppCompatActivity () {
+class LoginActivity : DaggerAppCompatActivity () , Validator.ValidationListener {
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
@@ -29,16 +34,29 @@ class LoginActivity : DaggerAppCompatActivity () {
 
     lateinit var btn_sign_in : Button
     lateinit var til_email : TextInputLayout
+
+    @NotEmpty(message = "Field cannot be empty")
     lateinit var et_email : EditText
+
     lateinit var til_password : TextInputLayout
+
+    @NotEmpty(message = "Field cannot be empty 33")
     lateinit var et_password : EditText
     lateinit var til_name : TextInputLayout
     lateinit var et_name : EditText
     lateinit var animation : LottieAnimationView
 
+    lateinit var validator: Validator
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        validator = Validator(this);
+        validator.setValidationListener(this);
+
+
         setupViews()
 
         viewModel = ViewModelProviders.of(this, providerFactory)[LoginViewModel::class.java]
@@ -91,14 +109,33 @@ class LoginActivity : DaggerAppCompatActivity () {
         et_name = findViewById(R.id.et_name)
         animation = findViewById(R.id.animation)
 
-        btn_sign_in.setOnClickListener {
-            animation.playAnimation()
+        //TODO: remove, just for test
+        et_email.setText("jaeren+androidtest@moneyboxapp.com")
+        et_password.setText("P455word12")
 
-//            val intent = Intent(this, ProductsActivity::class.java).apply {
-//                putExtra(getString(R.string.argument_investor_name), et_name.text.toString())
-//            }
-//            startActivity(intent)
-            viewModel.login("jaeren+androidtest@moneyboxapp.com", "P455word12")
+        btn_sign_in.setOnClickListener {
+            validator.validate();
         }
+    }
+
+    override fun onValidationFailed(errors: MutableList<ValidationError>) {
+
+        for (error in errors) {
+
+            val view: View = error.view
+            val message = error.getCollatedErrorMessage(this)
+
+            if (view is EditText) {
+                (view as EditText).error = message
+            } else {
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    override fun onValidationSucceeded() {
+
+        animation.playAnimation()
+        viewModel.login(et_email.text.toString(), et_password.text.toString())
     }
 }
