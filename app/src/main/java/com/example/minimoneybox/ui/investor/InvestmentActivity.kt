@@ -7,6 +7,7 @@ import com.example.minimoneybox.R
 import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityInvestmentBinding
 import com.example.minimoneybox.ui.BaseDaggerActivity
+import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.Resouce
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -50,6 +51,9 @@ class InvestmentActivity  : BaseDaggerActivity() {
     }
 
 
+    /**
+     * Method to subscribe observers
+     */
     private fun subscribeObservers(){
 
         viewModel.observeMessage().observe(this, object : Observer<Resouce<String>> {
@@ -59,11 +63,12 @@ class InvestmentActivity  : BaseDaggerActivity() {
                 when (resource.status) {
 
                     Resouce.Status.SUCCESS -> {
-
                         showSuccess(resource.message)
                     }
 
-                    Resouce.Status.ERROR -> {}
+                    Resouce.Status.ERROR -> {
+                        MessagesUtil.error(applicationContext, resource.message)
+                    }
 
                     else -> {
                         print("not found")
@@ -101,20 +106,8 @@ class InvestmentActivity  : BaseDaggerActivity() {
                 .setStartDelay(300)
                 .setDirection(Shimmer.ANIMATION_DIRECTION_RTL).start(txt_total)
 
-
-            var lolo = LovelyInfoDialog(this)
-            lolo
-                .setTopColorRes(R.color.designMainColor)
-                .setIcon(R.drawable.ic_cash)
-
-                .setTitle("R.string.info_title")
-                .setMessage("R.string.info_message")
-                .show();
-                Snackbar.make(activityInvestmentBinding.root, it, Snackbar.LENGTH_SHORT).show()
+            MessagesUtil.success(this, message)
 
         }
-
-
-
     }
 }
