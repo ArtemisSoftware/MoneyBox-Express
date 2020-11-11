@@ -1,7 +1,9 @@
 package com.example.minimoneybox.ui
 
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.WindowManager
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -10,12 +12,14 @@ import com.example.minimoneybox.databinding.ActivityBaseDaggerBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
 import com.example.minimoneybox.ui.investor.ProductsActivity
 import com.example.minimoneybox.ui.login.LoginActivity
+import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.PreferencesUtil
+import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-abstract class BaseDaggerActivity : DaggerAppCompatActivity(){
+abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.OnKeyListener{
 
     private lateinit var activityBaseBinding: ActivityBaseDaggerBinding
     protected lateinit var activityBinding: ViewDataBinding
@@ -55,8 +59,28 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(){
     }
 
 
+    protected open fun showError(resource: Resource<String>){
 
+        when(resource.data){
 
+            "401" ->{
+
+                MessagesUtil.error(this, resource.message, this)
+
+            }
+            else -> {
+                MessagesUtil.error(this, resource.message)
+            }
+
+        }
+
+    }
+
+    override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
+
+        initLogin()
+        return true
+    }
 
 
     /**

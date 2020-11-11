@@ -3,13 +3,20 @@ package com.example.minimoneybox.ui.investor
 import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
 import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityProductsBinding
 import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.ui.investor.adapters.OnProductListener
+import com.example.minimoneybox.utils.MessagesUtil
+import com.example.minimoneybox.utils.PreferencesUtil
+import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
+import kotlinx.android.synthetic.main.activity_investment.*
 
 class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
@@ -29,11 +36,19 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         activityProductsBinding.setListener(this)
 
 
-        if(savedInstanceState == null) {
-            getIncomingIntent();
+        subscribeObservers()
+
+        if(PreferencesUtil.getFirstUse(this) == true){
+            initLogin()
         }
-        else{
-            activityProductsBinding.investorName = savedInstanceState.getString(getString(R.string.argument_investor_name))
+        else {
+
+            if (savedInstanceState == null) {
+                getIncomingIntent();
+            } else {
+                activityProductsBinding.investorName =
+                    savedInstanceState.getString(getString(R.string.argument_investor_name))
+            }
         }
 
     }
@@ -45,6 +60,34 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
     override fun getViewModel(): BaseViewModel {
         return viewModel
     }
+
+
+    /**
+     * Method to subscribe observers
+     */
+    private fun subscribeObservers(){
+
+        viewModel.observeMessage().observe(this, object : Observer<Resource<String>> {
+
+            override fun onChanged(resource: Resource<String>){
+
+                when (resource.status) {
+
+                    Resource.Status.ERROR -> {
+                        showError(resource)
+                    }
+
+                    else -> {
+                        print("not found")
+                    }
+                }
+
+                btn_payment.isEnabled = true
+            }
+        })
+
+    }
+
 
 
     private fun getIncomingIntent() {
@@ -61,6 +104,10 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         }
         startActivity(intent)
     }
+
+
+
+
 
     override fun onResume() {
         super.onResume()

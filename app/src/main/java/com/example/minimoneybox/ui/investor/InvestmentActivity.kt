@@ -17,7 +17,7 @@ import com.romainpiel.shimmer.Shimmer
 import kotlinx.android.synthetic.main.activity_investment.*
 
 
-class InvestmentActivity  : BaseDaggerActivity(), DialogInterface.OnKeyListener {
+class InvestmentActivity  : BaseDaggerActivity() {
 
     lateinit var activityInvestmentBinding: ActivityInvestmentBinding
 
@@ -126,24 +126,7 @@ class InvestmentActivity  : BaseDaggerActivity(), DialogInterface.OnKeyListener 
         }
     }
 
-    private fun showError(resource: Resource<String>){
 
-        when(resource.data){
-
-            "401" ->{
-
-                MessagesUtil.error(applicationContext, resource.message, this)
-                
-            }
-            else -> {
-                MessagesUtil.error(applicationContext, resource.message)
-            }
-
-        }
-
-
-
-    }
 
 
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
@@ -154,9 +137,5 @@ class InvestmentActivity  : BaseDaggerActivity(), DialogInterface.OnKeyListener 
         }
     }
 
-    override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
 
-        initLogin()
-        return true
-    }
 }

@@ -3,8 +3,11 @@ package com.example.minimoneybox.utils.viewmodels
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.minimoneybox.api.models.ErrorMessage
 import com.example.minimoneybox.utils.Resource
+import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
+import org.json.JSONObject
 import retrofit2.HttpException
 
 
@@ -31,7 +34,10 @@ open abstract class BaseViewModel : ViewModel() {
     protected fun formatError(e: Throwable){
 
         if((e as HttpException).code() == 401){
-            message.value = Resource.error<String>((e as HttpException).code().toString(), "Your session has expired.")
+
+            val gson = Gson()
+            val error = gson.fromJson((e as HttpException).response()!!.errorBody()!!.charStream().readText(), ErrorMessage::class.java)
+            message.value = Resource.error<String>((e as HttpException).code().toString(), error.message)
         }
         else{
             message.value = Resource.error<String>(e.message())

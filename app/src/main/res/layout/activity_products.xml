@@ -26,12 +26,11 @@
 
 
 
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/appbar_layout_activity"
         android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_height="match_parent">
-
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -212,206 +211,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-
-<!--            -->
-
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="20dp">-->
-
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginBottom="20dp"-->
-<!--                    app:cardCornerRadius="16dp"-->
-<!--                    app:cardPreventCornerOverlap="false"-->
-<!--                    app:cardBackgroundColor="@color/designMainColor"-->
-<!--                    android:minHeight="200dp"-->
-<!--                    android:layout_alignParentTop="true">-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:gravity="center_vertical">-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:padding="10dp"-->
-<!--                            android:orientation="vertical"-->
-<!--                            android:layout_weight="1">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="Continue to \nWebdeveloper Course"-->
-<!--                                android:textColor="@color/whiteBodyColor"-->
-<!--                                android:textStyle="bold"-->
-<!--                                android:textSize="20sp"/>-->
-
-<!--                            <TextView-->
-<!--                                android:layout_marginTop="15dp"-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="60% Complete"-->
-<!--                                android:textColor="@color/whiteBodyColor"-->
-<!--                                android:textStyle="bold"-->
-<!--                                android:textSize="13sp"/>-->
-
-<!--                        </LinearLayout>-->
-<!--                        <ImageView-->
-<!--                            android:layout_width="0dp"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:adjustViewBounds="true"-->
-<!--                            android:cropToPadding="true"-->
-<!--                            android:src="@drawable/ic_launcher_background"-->
-<!--                            android:elevation="44dp"/>-->
-<!--                    </LinearLayout>-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-
-<!--            </RelativeLayout>-->
-
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="10dp">-->
-
-<!--                <TextView-->
-<!--                    android:layout_alignParentTop="true"-->
-<!--                    android:layout_alignParentLeft="true"-->
-<!--                    android:text="Tutorials"-->
-<!--                    style="@style/viewParent.headerText"/>-->
-
-<!--                <TextView-->
-<!--                    android:layout_alignParentRight="true"-->
-<!--                    style="@style/viewParent"-->
-<!--                    android:text="See All"-->
-<!--                    android:layout_centerVertical="true"-->
-<!--                    android:textSize="@dimen/headerMoreTextSize"-->
-<!--                    android:textColor="@color/primaryTextColor"-->
-<!--                    android:textStyle="bold"/>-->
-
-<!--            </RelativeLayout>-->
-
         </LinearLayout>
 
-
-
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_centerHorizontal="true"-->
-<!--            app:layout_behavior="@string/appbar_scrolling_view_behavior">-->
-
-
-
-<!--            <com.google.android.material.card.MaterialCardView-->
-<!--                android:theme="@style/Theme.MaterialComponents.Light"-->
-<!--                style="@style/card"-->
-<!--                app:strokeWidth="1dp"-->
-<!--                app:strokeColor="@color/aqua_50"-->
-<!--                app:cardElevation="2dp">-->
-
-<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content">-->
-
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView"-->
-<!--                        style="@style/cardTitle"-->
-<!--                        android:layout_marginStart="16dp"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:text="@string/investor"-->
-<!--                        app:layout_constraintStart_toStartOf="parent"-->
-<!--                        app:layout_constraintTop_toTopOf="parent" />-->
-
-
-<!--                    <View-->
-<!--                        android:id="@+id/view"-->
-<!--                        android:layout_width="350dp"-->
-<!--                        android:layout_height="0.2dp"-->
-<!--                        android:layout_marginTop="12dp"-->
-<!--                        android:background="#c0c0c0"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textView" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView2"-->
-<!--                        style="@style/cardText"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        android:text="@string/hello"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/view" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView3"-->
-<!--                        style="@style/cardText"-->
-<!--                        android:layout_marginStart="16dp"-->
-<!--                        android:text="@{investorName}"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/textView2"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/textView2" />-->
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textView4"-->
-<!--                        style="@style/cardText"-->
-<!--                        android:layout_marginEnd="24dp"-->
-<!--                        android:layout_marginBottom="16dp"-->
-<!--                        android:text="@string/total_plan_value"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textView2"-->
-<!--                        app:layout_constraintVertical_bias="0.26999998" />-->
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_marginBottom="16dp"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                        app:layout_constraintEnd_toEndOf="@+id/textView4"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textView4">-->
-
-<!--                        <TextView-->
-<!--                            android:id="@+id/textView5"-->
-<!--                            style="@style/bigMoney"-->
-<!--                            android:layout_marginLeft="6dp"-->
-<!--                            android:text="@{StringUtil.convertPoundsToString(viewmodel.products.totalPlanValue), default=planValue}" />-->
-
-
-<!--                    </LinearLayout>-->
-
-<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-<!--            </com.google.android.material.card.MaterialCardView>-->
-
-
-<!--            <TextView-->
-<!--                android:id="@+id/textView1"-->
-<!--                style="@style/title"-->
-<!--                android:padding="14dp"-->
-<!--                android:text="@string/my_accounts" />-->
-
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                style="@style/recycler"-->
-<!--                products="@{viewmodel.products.products}"-->
-<!--                listener="@{listener}"-->
-<!--                tools:listitem="@layout/item_product"/>-->
-<!--            &lt;!&ndash;  &ndash;&gt;-->
-<!--        </LinearLayout>-->
-
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
 
 </layout>

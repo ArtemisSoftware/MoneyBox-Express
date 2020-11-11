@@ -12,6 +12,9 @@ class PreferencesUtil {
         const val INVESTOR_NAME = "investorName"
         const val TOKEN = "token"
 
+        const val APP_PREFERENCES_FILE = "appPreferences"
+        const val FIRST_USE = "firstUse"
+
         /**
          * Method to save investor data
          */
@@ -23,6 +26,8 @@ class PreferencesUtil {
             editor.putString(TOKEN,token)
             editor.apply()
             editor.commit()
+
+            setFirstUse(context, false)
         }
 
         /**
@@ -55,5 +60,22 @@ class PreferencesUtil {
             editor.clear()
             editor.apply()
         }
+
+
+        fun setFirstUse(context : Context, firstUse : Boolean) {
+
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(APP_PREFERENCES_FILE, Context.MODE_PRIVATE)
+            val editor : SharedPreferences.Editor =  sharedPreferences.edit()
+            editor.putBoolean(FIRST_USE,firstUse)
+            editor.apply()
+            editor.commit()
+        }
+
+        fun getFirstUse(context : Context) : Boolean{
+
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(APP_PREFERENCES_FILE, Context.MODE_PRIVATE)
+            return sharedPreferences.getBoolean(FIRST_USE,true)
+        }
+
     }
 }
