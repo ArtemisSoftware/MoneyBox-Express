@@ -3,11 +3,9 @@ package com.example.minimoneybox.utils.viewmodels
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.minimoneybox.api.models.ErrorMessage
+import com.example.minimoneybox.utils.ErrorsUtil
 import com.example.minimoneybox.utils.Resource
-import com.google.gson.Gson
 import io.reactivex.disposables.CompositeDisposable
-import org.json.JSONObject
 import retrofit2.HttpException
 
 
@@ -40,22 +38,14 @@ open abstract class BaseViewModel : ViewModel() {
     protected fun formatError(e: Throwable){
 
         if(e is HttpException){
-
-            if(e.code() == 401){
-
-                val gson = Gson()
-                val error = gson.fromJson(e.response()!!.errorBody()!!.charStream().readText(), ErrorMessage::class.java)
-                message.value = Resource.error<String>(e.code().toString(), error.message)
-            }
-            else{
-                message.value = Resource.error<String>(e.message())
-            }
+            message.value = ErrorsUtil.httpErrors(e)
         }
         else{
             message.value = Resource.error<String>(e.message!!)
         }
 
     }
+
 
     override fun onCleared() {
         super.onCleared()

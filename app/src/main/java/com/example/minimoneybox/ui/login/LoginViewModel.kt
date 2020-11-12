@@ -38,9 +38,7 @@ class LoginViewModel @Inject constructor(private val repository: Repository) : B
                     }
 
                     override fun onError(e: Throwable) {
-                        e.message?.let {
-                            message.value = Resource.error(it)
-                        }
+                        formatError(e)
                         showProgressBar(false)
                     }
 
