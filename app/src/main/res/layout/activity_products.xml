@@ -130,7 +130,7 @@
                             android:layout_marginBottom="16dp"
                             android:text="@string/total_plan_value"
                             android:textColor="@color/whiteBodyColor"
-                            android:textSize="13sp"
+                            android:textSize="13dp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/textView10"
@@ -151,39 +151,6 @@
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
-<!--                    <LinearLayout-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:gravity="center_vertical">-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="match_parent"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="vertical"-->
-<!--                            android:padding="15dp">-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@{StringUtil.convertPoundsToString(viewmodel.products.totalPlanValue), default=planValue}"-->
-<!--                                style="@style/bigMoney"-->
-<!--                                android:textColor="@color/whiteBodyColor" />-->
-
-<!--                            <TextView-->
-<!--                                android:layout_width="wrap_content"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:layout_marginTop="15dp"-->
-<!--                                android:text="@string/total_plan_value"-->
-<!--                                style="@style/cardText"-->
-<!--                                android:textColor="@color/whiteBodyColor"-->
-<!--                                android:textSize="13sp"-->
-<!--                                android:textStyle="bold" />-->
-
-<!--                        </LinearLayout>-->
-
-<!--                    </LinearLayout>-->
 
 
                 </androidx.cardview.widget.CardView>
