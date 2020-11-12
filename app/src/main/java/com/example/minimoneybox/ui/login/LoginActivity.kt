@@ -131,10 +131,10 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
         et_name = findViewById(R.id.et_name)
         animation = findViewById(R.id.animation)
 
-//        //for tests
-//        et_email.setText("jaeren+androidtest@moneyboxapp.com")
-//        et_password.setText("P455word12")
-//        et_name.setText("Milo kraken")
+        //for tests
+        et_email.setText("jaeren+androidtest@moneyboxapp.com")
+        et_password.setText("P455word12")
+        et_name.setText("Milo kraken")
 
         btn_sign_in.setOnClickListener {
             btn_sign_in.isEnabled = false

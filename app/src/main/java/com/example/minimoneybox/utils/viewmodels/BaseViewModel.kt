@@ -43,7 +43,6 @@ open abstract class BaseViewModel : ViewModel() {
         else{
             message.value = Resource.error<String>(e.message!!)
         }
-
     }
 
 
