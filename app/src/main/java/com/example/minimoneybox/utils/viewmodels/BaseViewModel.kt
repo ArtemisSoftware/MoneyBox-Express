@@ -26,11 +26,17 @@ open abstract class BaseViewModel : ViewModel() {
     }
 
 
+    /**
+     * Method to present the progression bar
+     */
     protected fun showProgressBar(visible: Boolean) {
         loading.value = if (visible) View.VISIBLE else View.INVISIBLE
     }
 
 
+    /**
+     * Method to format errors so they can be presented
+     */
     protected fun formatError(e: Throwable){
 
         if(e is HttpException){

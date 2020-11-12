@@ -45,7 +45,7 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
     @NotEmpty(message = "Field cannot be empty")
     lateinit var et_email : EditText
 
-    @NotEmpty(message = "Field cannot be empty 33")
+    @NotEmpty(message = "Field cannot be empty")
     lateinit var et_password : EditText
 
     lateinit var validator: Validator
@@ -76,6 +76,10 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
         return viewModel
     }
 
+
+    /**
+     * Method to subscribe observers
+     */
     private fun subscribeObservers(){
 
         viewModel.observeMessage().observe(this, object : Observer<Resource<String>> {
@@ -127,10 +131,10 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
         et_name = findViewById(R.id.et_name)
         animation = findViewById(R.id.animation)
 
-        //TODO: remove, just for test
-        et_email.setText("jaeren+androidtest@moneyboxapp.com")
-        et_password.setText("P455word12")
-        et_name.setText("Milo kraken")
+//        //for tests
+//        et_email.setText("jaeren+androidtest@moneyboxapp.com")
+//        et_password.setText("P455word12")
+//        et_name.setText("Milo kraken")
 
         btn_sign_in.setOnClickListener {
             btn_sign_in.isEnabled = false

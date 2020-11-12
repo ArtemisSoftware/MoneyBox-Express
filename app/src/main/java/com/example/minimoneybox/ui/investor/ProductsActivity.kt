@@ -2,7 +2,6 @@ package com.example.minimoneybox.ui.investor
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -15,7 +14,9 @@ import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import kotlinx.android.synthetic.main.activity_products.*
 
-
+/**
+ * Activity that shows all the products availble
+ */
 class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
     lateinit var activityProductsBinding: ActivityProductsBinding
@@ -37,13 +38,13 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         setupViews()
         subscribeObservers()
 
-        if(PreferencesUtil.getSessionState(this) == true){
+        if(PreferencesUtil.getSessionValidity(this) == false){
             initLogin()
         }
         else {
 
             if (savedInstanceState == null) {
-                getIncomingIntent();
+                getIncomingData();
             } else {
                 txt_user.text = savedInstanceState.getString(getString(R.string.argument_investor_name))
             }
@@ -92,7 +93,10 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
     }
 
 
-    private fun getIncomingIntent() {
+    /**
+     * Method to get data to complete activity
+     */
+    private fun getIncomingData() {
 
         userName = PreferencesUtil.getInvestorName(this)
         txt_user.text = userName

@@ -84,6 +84,7 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
 
                     override fun onNext(result: List<Product>) {
                         product.value = result.get(0);
+                        showProgressBar(false)
                     }
 
                     override fun onError(e: Throwable) {

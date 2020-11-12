@@ -29,13 +29,11 @@ object NetworkModule {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.HEADERS);
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        val headerInterceptor =  HeaderInterceptor()
 
         val client : OkHttpClient  =  OkHttpClient.Builder()
 
             .addInterceptor(loggingInterceptor)
-
-            .addInterceptor(headerInterceptor)
+            .addInterceptor(HeaderInterceptor())
             .addInterceptor(NetworkConnectionInterceptor(application))
 
             .connectTimeout(ApiConstants.CONNECTION_TIMEOUT, TimeUnit.SECONDS) //time between each byte read from the server

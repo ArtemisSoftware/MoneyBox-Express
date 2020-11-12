@@ -62,6 +62,9 @@ class PreferencesUtil {
         }
 
 
+        /**
+         * Method to set the first usage of the app
+         */
         fun setFirstUse(context : Context, firstUse : Boolean) {
 
             val sharedPreferences: SharedPreferences = context.getSharedPreferences(APP_PREFERENCES_FILE, Context.MODE_PRIVATE)
@@ -71,23 +74,31 @@ class PreferencesUtil {
             editor.commit()
         }
 
+
+        /**
+         * Method to get the state of the first usage of the app
+         */
         fun getFirstUse(context : Context) : Boolean{
 
             val sharedPreferences: SharedPreferences = context.getSharedPreferences(APP_PREFERENCES_FILE, Context.MODE_PRIVATE)
             return sharedPreferences.getBoolean(FIRST_USE,true)
         }
 
-        fun getSessionState(context : Context) : Boolean{
+
+        /**
+         * Method to get the validity of the user session.
+         */
+        fun getSessionValidity(context : Context) : Boolean{
 
             when {
                 getFirstUse(context) == true -> {
-                    return true
+                    return false
                 }
                 getFirstUse(context) == false && getInvestorName(context).equals("") == true -> {
-                    return true
+                    return false
                 }
                 else -> {
-                    return false
+                    return true
                 }
             }
         }

@@ -1,9 +1,7 @@
 package com.example.minimoneybox.ui.investor
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.os.PersistableBundle
-import android.view.KeyEvent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -15,9 +13,10 @@ import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.romainpiel.shimmer.Shimmer
 import kotlinx.android.synthetic.main.activity_investment.*
-import kotlinx.android.synthetic.main.activity_products.*
 
-
+/**
+ * Activity for investor to invest
+ */
 class InvestmentActivity  : BaseDaggerActivity() {
 
     lateinit var activityInvestmentBinding: ActivityInvestmentBinding
@@ -45,7 +44,6 @@ class InvestmentActivity  : BaseDaggerActivity() {
         else{
             viewModel.product.value = savedInstanceState.getParcelable(getString(R.string.argument_product))
         }
-
     }
 
 
@@ -101,8 +99,9 @@ class InvestmentActivity  : BaseDaggerActivity() {
     }
 
 
-
-
+    /**
+     * Method to get the incoming data
+     */
     private fun getIncomingIntent() {
         intent.extras?.let{
             viewModel.product.value = it.getParcelable<Product>(getString(R.string.argument_product))
@@ -136,9 +135,7 @@ class InvestmentActivity  : BaseDaggerActivity() {
     override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
         super.onSaveInstanceState(outState, outPersistentState)
 
-        intent.extras?.let{
-            outState.putParcelable(getString(R.string.argument_product), it.getParcelable<Product>(getString(R.string.argument_product)))
-        }
+        outState.putParcelable(getString(R.string.argument_product), viewModel.product.value)
     }
 
 

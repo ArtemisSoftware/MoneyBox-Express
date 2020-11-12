@@ -1,12 +1,9 @@
 package com.example.minimoneybox.ui
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager
-import androidx.core.content.IntentCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.minimoneybox.R
@@ -21,7 +18,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
 
-abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.OnKeyListener{
+abstract class BaseDaggerActivity : DaggerAppCompatActivity(){
 
     private lateinit var activityBaseBinding: ActivityBaseDaggerBinding
     protected lateinit var activityBinding: ViewDataBinding
@@ -30,7 +27,7 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
 
-    private lateinit var listenerActivity : View.OnClickListener
+    private lateinit var activityListener : View.OnClickListener
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +41,7 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
         activityBaseBinding.setLifecycleOwner(this)
         activityBaseBinding.setBaseviewmodel(getViewModel())
 
-        listenerActivity = object : View.OnClickListener {
+        activityListener = object : View.OnClickListener {
             override fun onClick(v: View?) {
                 initLogin()
             }
@@ -56,7 +53,7 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
 
 
     /**
-     * Method that initiates the login activity
+     * Method that initiates that closes all activities and starts the login activity
      */
     protected fun initLogin(){
 
@@ -72,13 +69,16 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
     }
 
 
+    /**
+     * Method to present errors
+     */
     protected open fun showError(resource: Resource<String>){
 
         when(resource.data){
 
             "401" ->{
 
-                MessagesUtil.error(this, resource.message, listenerActivity)
+                MessagesUtil.error(this, resource.message, activityListener)
 
             }
             else -> {
@@ -86,14 +86,12 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
             }
 
         }
-
     }
 
-    override fun onKey(dialog: DialogInterface?, keyCode: Int, event: KeyEvent?): Boolean {
 
-        initLogin()
-        return true
-    }
+    //------------------
+    //abstract methods
+    //------------------
 
 
     /**
