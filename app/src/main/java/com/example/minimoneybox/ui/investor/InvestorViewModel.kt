@@ -43,11 +43,12 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
                     }
 
                     override fun onError(e: Throwable) {
+                        formatError(e)
                         showProgressBar(false)
                     }
 
                     override fun onComplete() {
-                        //TODO("Not yet implemented")
+                        showProgressBar(false)
                     }
                 }
             )
@@ -87,6 +88,7 @@ class InvestorViewModel @Inject constructor(private val repository: Repository) 
 
                     override fun onError(e: Throwable) {
                         formatError(e)
+                        showProgressBar(false)
                     }
 
                     override fun onComplete() {

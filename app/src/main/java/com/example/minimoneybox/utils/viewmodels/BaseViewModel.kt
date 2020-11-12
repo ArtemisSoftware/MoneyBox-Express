@@ -33,15 +33,22 @@ open abstract class BaseViewModel : ViewModel() {
 
     protected fun formatError(e: Throwable){
 
-        if((e as HttpException).code() == 401){
+        if(e is HttpException){
 
-            val gson = Gson()
-            val error = gson.fromJson((e as HttpException).response()!!.errorBody()!!.charStream().readText(), ErrorMessage::class.java)
-            message.value = Resource.error<String>((e as HttpException).code().toString(), error.message)
+            if(e.code() == 401){
+
+                val gson = Gson()
+                val error = gson.fromJson(e.response()!!.errorBody()!!.charStream().readText(), ErrorMessage::class.java)
+                message.value = Resource.error<String>(e.code().toString(), error.message)
+            }
+            else{
+                message.value = Resource.error<String>(e.message())
+            }
         }
         else{
-            message.value = Resource.error<String>(e.message())
+            message.value = Resource.error<String>(e.message!!)
         }
+
     }
 
     override fun onCleared() {

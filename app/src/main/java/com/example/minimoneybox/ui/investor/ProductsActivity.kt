@@ -2,9 +2,7 @@ package com.example.minimoneybox.ui.investor
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.PersistableBundle
-import android.view.Menu
-import android.view.MenuItem
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.minimoneybox.R
@@ -12,11 +10,11 @@ import com.example.minimoneybox.api.models.Product
 import com.example.minimoneybox.databinding.ActivityProductsBinding
 import com.example.minimoneybox.ui.BaseDaggerActivity
 import com.example.minimoneybox.ui.investor.adapters.OnProductListener
-import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.PreferencesUtil
 import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
-import kotlinx.android.synthetic.main.activity_investment.*
+import kotlinx.android.synthetic.main.activity_products.*
+
 
 class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
@@ -24,6 +22,7 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
 
     lateinit private var viewModel: InvestorViewModel
 
+    lateinit private var userName: String
 
 
     override fun initActivity(savedInstanceState: Bundle?) {
@@ -35,10 +34,10 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         activityProductsBinding.setViewmodel(viewModel)
         activityProductsBinding.setListener(this)
 
-
+        setupViews()
         subscribeObservers()
 
-        if(PreferencesUtil.getFirstUse(this) == true){
+        if(PreferencesUtil.getSessionState(this) == true){
             initLogin()
         }
         else {
@@ -46,8 +45,7 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
             if (savedInstanceState == null) {
                 getIncomingIntent();
             } else {
-                activityProductsBinding.investorName =
-                    savedInstanceState.getString(getString(R.string.argument_investor_name))
+                txt_user.text = savedInstanceState.getString(getString(R.string.argument_investor_name))
             }
         }
 
@@ -81,19 +79,23 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
                         print("not found")
                     }
                 }
-
-                btn_payment.isEnabled = true
             }
         })
-
     }
 
 
+    private fun setupViews() {
+
+        crl_img_logout.setOnClickListener {
+            initLogin()
+        }
+    }
+
 
     private fun getIncomingIntent() {
-        intent.extras?.let{
-            activityProductsBinding.investorName = it.getString(getString(R.string.argument_investor_name))
-        }
+
+        userName = PreferencesUtil.getInvestorName(this)
+        txt_user.text = userName
     }
 
 
@@ -114,11 +116,15 @@ class ProductsActivity : BaseDaggerActivity(), OnProductListener {
         viewModel.getProducts()
     }
 
-    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
-        super.onSaveInstanceState(outState, outPersistentState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(getString(R.string.argument_investor_name), userName)
 
-        intent.extras?.let{
-            outState.putString(getString(R.string.argument_investor_name), it.getString(getString(R.string.argument_investor_name)))
-        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        userName = savedInstanceState.getString(getString(R.string.argument_investor_name), "000")
+        txt_user.text = userName
     }
 }

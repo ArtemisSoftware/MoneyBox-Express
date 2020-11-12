@@ -4,13 +4,14 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.View
 import android.view.WindowManager
+import androidx.core.content.IntentCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import com.example.minimoneybox.R
 import com.example.minimoneybox.databinding.ActivityBaseDaggerBinding
 import com.example.minimoneybox.di.ViewModelProviderFactory
-import com.example.minimoneybox.ui.investor.ProductsActivity
 import com.example.minimoneybox.ui.login.LoginActivity
 import com.example.minimoneybox.utils.MessagesUtil
 import com.example.minimoneybox.utils.PreferencesUtil
@@ -18,6 +19,7 @@ import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
+
 
 abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.OnKeyListener{
 
@@ -27,6 +29,8 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
 
     @Inject
     lateinit var providerFactory: ViewModelProviderFactory
+
+    private lateinit var listenerActivity : View.OnClickListener
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,6 +43,12 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
         initActivity(savedInstanceState)
         activityBaseBinding.setLifecycleOwner(this)
         activityBaseBinding.setBaseviewmodel(getViewModel())
+
+        listenerActivity = object : View.OnClickListener {
+            override fun onClick(v: View?) {
+                initLogin()
+            }
+        }
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
 
@@ -53,6 +63,9 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
         PreferencesUtil.deleteInvestor(this)
 
         val intent = Intent(this, LoginActivity::class.java)
+        intent.addFlags(
+            Intent.FLAG_ACTIVITY_SINGLE_TOP  or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        )
         startActivity(intent)
 
         finish()
@@ -65,7 +78,7 @@ abstract class BaseDaggerActivity : DaggerAppCompatActivity(), DialogInterface.O
 
             "401" ->{
 
-                MessagesUtil.error(this, resource.message, this)
+                MessagesUtil.error(this, resource.message, listenerActivity)
 
             }
             else -> {

@@ -108,11 +108,9 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
      */
     private fun initProducts(token : String){
 
-        PreferencesUtil.saveInvestor(applicationContext, et_name.text.toString(), token)
+        PreferencesUtil.saveInvestor(this, et_name.text.toString(), token)
 
-        val intent = Intent(this, ProductsActivity::class.java).apply {
-            putExtra(getString(R.string.argument_investor_name), et_name.text.toString())
-        }
+        val intent = Intent(this, ProductsActivity::class.java)
         startActivity(intent)
 
         finish()

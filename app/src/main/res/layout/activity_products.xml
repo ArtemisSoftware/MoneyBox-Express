@@ -10,10 +10,6 @@
         <import type="com.example.minimoneybox.utils.StringUtil"/>
 
         <variable
-            name="investorName"
-            type="String"/>
-
-        <variable
             name="viewmodel"
             type="com.example.minimoneybox.ui.investor.InvestorViewModel"/>
 
@@ -39,11 +35,12 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp">
 
 
                 <TextView
-                    android:id="@+id/textViewUser"
+                    android:id="@+id/textViewHello"
                     style="@style/viewParent.headerText"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
@@ -55,27 +52,38 @@
 
 
                 <TextView
-                    android:id="@+id/textViewUser2"
+                    android:id="@+id/txt_user"
                     style="@style/viewParent.headerText"
                     android:layout_marginStart="16dp"
-                    android:text="@{investorName}"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewUser"
-                    app:layout_constraintStart_toEndOf="@+id/textViewUser"
-                    app:layout_constraintTop_toTopOf="@+id/textViewUser" />
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewHello"
+                    app:layout_constraintStart_toEndOf="@+id/textViewHello"
+                    app:layout_constraintTop_toTopOf="@+id/textViewHello" />
+
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileCircleImageView"
+
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginEnd="24dp"
                     android:src="@drawable/ic_investor"
                     app:civ_border_color="@color/imageBorderColor"
                     app:civ_border_width="2dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/textViewUser"
+                    app:layout_constraintBottom_toBottomOf="@+id/crl_img_logout"
+                    app:layout_constraintEnd_toStartOf="@+id/crl_img_logout"
+                    app:layout_constraintTop_toTopOf="@+id/crl_img_logout" />
+
+                <ImageView
+                    android:id="@+id/crl_img_logout"
+                    android:layout_width="37dp"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:src="@drawable/ic_log_out"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewHello"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/textViewUser" />
+                    app:layout_constraintTop_toTopOf="@+id/textViewHello" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -77,5 +77,20 @@ class PreferencesUtil {
             return sharedPreferences.getBoolean(FIRST_USE,true)
         }
 
+        fun getSessionState(context : Context) : Boolean{
+
+            when {
+                getFirstUse(context) == true -> {
+                    return true
+                }
+                getFirstUse(context) == false && getInvestorName(context).equals("") == true -> {
+                    return true
+                }
+                else -> {
+                    return false
+                }
+            }
+        }
+
     }
 }

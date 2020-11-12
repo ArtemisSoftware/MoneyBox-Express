@@ -15,6 +15,7 @@ import com.example.minimoneybox.utils.Resource
 import com.example.minimoneybox.utils.viewmodels.BaseViewModel
 import com.romainpiel.shimmer.Shimmer
 import kotlinx.android.synthetic.main.activity_investment.*
+import kotlinx.android.synthetic.main.activity_products.*
 
 
 class InvestmentActivity  : BaseDaggerActivity() {
@@ -88,15 +89,6 @@ class InvestmentActivity  : BaseDaggerActivity() {
 
     }
 
-
-    private fun getIncomingIntent() {
-        intent.extras?.let{
-            viewModel.product.value = it.getParcelable<Product>(getString(R.string.argument_product))
-            setupViews()
-        }
-    }
-
-
     private fun setupViews() {
 
         activityInvestmentBinding.btnPayment.setOnClickListener {
@@ -107,6 +99,18 @@ class InvestmentActivity  : BaseDaggerActivity() {
             }
         }
     }
+
+
+
+
+    private fun getIncomingIntent() {
+        intent.extras?.let{
+            viewModel.product.value = it.getParcelable<Product>(getString(R.string.argument_product))
+            setupViews()
+        }
+    }
+
+
 
 
     /**
@@ -138,4 +142,8 @@ class InvestmentActivity  : BaseDaggerActivity() {
     }
 
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        viewModel.product.value =  savedInstanceState.getParcelable(getString(R.string.argument_product))
+    }
 }
