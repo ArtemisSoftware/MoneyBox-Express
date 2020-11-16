@@ -94,7 +94,7 @@ class PreferencesUtil {
                 getFirstUse(context) == true -> {
                     return false
                 }
-                getFirstUse(context) == false && getInvestorName(context).equals("") == true -> {
+                getInvestorName(context).equals("") == true -> {
                     return false
                 }
                 else -> {
