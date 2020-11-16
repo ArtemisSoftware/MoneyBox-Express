@@ -10,6 +10,7 @@ class PreferencesUtil {
 
         const val INVESTOR_PREFERENCES_FILE = "investorPreferences"
         const val INVESTOR_NAME = "investorName"
+        const val INVESTOR_EMAIL = "investorEmail"
         const val TOKEN = "token"
 
         const val APP_PREFERENCES_FILE = "appPreferences"
@@ -18,10 +19,11 @@ class PreferencesUtil {
         /**
          * Method to save investor data
          */
-        fun saveInvestor(context : Context, name : String, token : String) {
+        fun saveInvestor(context : Context, email : String, name : String, token : String) {
 
             val sharedPreferences: SharedPreferences = context.getSharedPreferences(INVESTOR_PREFERENCES_FILE, Context.MODE_PRIVATE)
             val editor : SharedPreferences.Editor =  sharedPreferences.edit()
+            editor.putString(INVESTOR_EMAIL,email)
             editor.putString(INVESTOR_NAME,name)
             editor.putString(TOKEN,token)
             editor.apply()
@@ -47,6 +49,16 @@ class PreferencesUtil {
 
             val sharedPreferences: SharedPreferences = context.getSharedPreferences(INVESTOR_PREFERENCES_FILE, Context.MODE_PRIVATE)
             return sharedPreferences.getString(INVESTOR_NAME,"").toString()
+        }
+
+
+        /**
+         * Method to get the investor email
+         */
+        fun getInvestorEmail(context : Context) : String{
+
+            val sharedPreferences: SharedPreferences = context.getSharedPreferences(INVESTOR_PREFERENCES_FILE, Context.MODE_PRIVATE)
+            return sharedPreferences.getString(INVESTOR_EMAIL,"").toString()
         }
 
 
@@ -94,7 +106,7 @@ class PreferencesUtil {
                 getFirstUse(context) == true -> {
                     return false
                 }
-                getInvestorName(context).equals("") == true -> {
+                getInvestorEmail(context).equals("") == true -> {
                     return false
                 }
                 else -> {

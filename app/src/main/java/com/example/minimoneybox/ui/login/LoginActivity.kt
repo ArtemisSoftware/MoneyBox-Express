@@ -112,7 +112,7 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
      */
     private fun initProducts(token : String){
 
-        PreferencesUtil.saveInvestor(this, et_name.text.toString(), token)
+        PreferencesUtil.saveInvestor(this, et_email.text.toString(), et_name.text.toString(), token)
 
         val intent = Intent(this, ProductsActivity::class.java)
         startActivity(intent)
@@ -131,7 +131,7 @@ class LoginActivity :  BaseDaggerActivity() , Validator.ValidationListener {
         et_name = findViewById(R.id.et_name)
         animation = findViewById(R.id.animation)
 
-//        //for tests
+        //for tests
 //        et_email.setText("jaeren+androidtest@moneyboxapp.com")
 //        et_password.setText("P455word12")
 //        et_name.setText("Milo kraken")
